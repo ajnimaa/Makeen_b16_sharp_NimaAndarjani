@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -19,160 +24,52 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// product get routes
-Route::get('/products/add', function () {
-    return view('products.add');
+Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+    // product get routes
+    Route::get('add', [ProductController::class, 'create'])->name('showcreate');
+    Route::get('edit/{id}', [ProductController::class, 'update'])->name('update');
+    Route::get('index', [ProductController::class, 'index'])->name('index');
+    //product post routes
+    Route::post('add', [ProductController::class, 'add'])->name('add');
+    Route::post('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+    // product delete route
+    Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 });
 
-Route::get('/products/edit/{id}', function ($id) {
-
-    $product = DB::table('products')->where('id', $id)->first();
-    return view('products.edit', ["product" => $product]);
-});
-
-Route::get('/products/index', function () {
-
-    $products = DB::table('products')->get();
-    return view('products.index', ["products" => $products]);
-});
-
-//product post routes
-Route::post('/products/add', function (Request $request) {
-
-
-    DB::table('products')->insert([
-        "product_name" => $request->product_name,
-        "product_code" => $request->product_code,
-        "product_price" => $request->product_price,
-        "inventory" => $request->inventory,
-
-    ]);
-    return redirect('/products/index');
-});
-
-Route::post('/products/edit/{id}', function (Request $request, $id) {
-
-    DB::table('products')->where('id', $id)->update([
-        "product_name" => $request->product_name,
-        "product_code" => $request->product_code,
-        "product_price" => $request->product_price,
-        "inventory" => $request->inventory,
-    ]);
-    return "محصول با موفقیت ویرایش شد";
+Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+    //users get routes
+    Route::get('add', [UserController::class, 'create'])->name('showcreate');
+    Route::get('edit/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('index', [UserController::class, 'index'])->name('index');
+    //users post routes
+    Route::post('add', [UserController::class, 'add'])->name('add');
+    Route::post('edit/{id}', [UserController::class, 'edit'])->name('edit');
+    //users delete route
+    Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
 });
 
 
-// product delete route
-
-Route::delete('/products/delete/{id}', function ($id) {
-
-    DB::table('products')->where('id', $id)->delete();
-
-    return redirect('/products/index');
+Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+    //orders get routes
+    Route::get('add', [OrderController::class, 'create'])->name('showcreate');
+    Route::get('edit/{id}', [OrderController::class, 'update'])->name('update');
+    Route::get('index', [OrderController::class, 'index'])->name('index');
+    //orders post routes
+    Route::post('add', [OrderController::class, 'add'])->name('add');
+    Route::post('edit/{id}', [OrderController::class, 'edit'])->name('edit');
+    //orders delete route
+    Route::delete('delete/{id}', [OrderController::class, 'delete'])->name('delete');
 });
 
-
-//users get routes
-
-Route::get('/users/add', function () {
-    return view('users.add');
+Route::group(['perfix' => 'posts', 'as' => 'posts.'], function () {
+    // post get route
+    Route::get('add', [PostController::class, 'create'])->name('showcreate');
+    Route::get('edit/{id}', [PostController::class, 'update'])->name('update');
+    Route::get('index', [PostController::class, 'index'])->name('index');
+    //posts POST route
+    Route::post('add', [PostController::class, 'add'])->name('add');
+    Route::post('edit/{id}', [PostController::class, 'edit'])->name('edit');
+    //posts delete route
+    Route::delete('delete/{id}', [PostController::class, 'delete'])->name('delete');
 });
 
-Route::get('/users/edit/{id}', function ($id) {
-    $users = DB::table('users')->where('id', $id)->first();
-    return view('users.edit', ["users" => $users]);
-});
-
-Route::get('/users/index', function () {
-
-    $users = DB::table('users')->get();
-    return view('users.index', ["users" => $users]);
-});
-
-//users post routes
-
-Route::post('/users/add', function (Request $request) {
-
-    DB::table('users')->insert([
-        "name" => $request->name,
-        "last_name" => $request->last_name,
-        "phone_number" => $request->phone_number,
-        "email" => $request->email,
-        "password" => $request->password,
-        "gender" => $request->gender,
-    ]);
-    return redirect('/users/index');
-});
-
-Route::post('/users/edit/{id}', function (Request $request, $id) {
-
-    DB::table('users')->where('id', $id)->update([
-        "name" => $request->name,
-        "last_name" => $request->last_name,
-        "phone_number" => $request->phone_number,
-        "email" => $request->email,
-        "gender" => $request->gender,
-    ]);
-    return redirect('/users/index');
-});
-
-//users delete route
-
-Route::delete('/users/delete/{id}', function ($id) {
-
-    DB::table('users')->where('id', $id)->delete();
-    return redirect('/users/index');
-});
-
-
-//orders get routes
-
-Route::get('/orders/add', function () {
-    return view('orders.add');
-});
-
-Route::get('/orders/edit/{id}', function ($id) {
-    $orders = DB::table('orders')->where('id', $id)->first();
-    return view('orders.edit', ["orders" => $orders]);
-});
-
-Route::get('/orders/index', function () {
-
-    $orders = DB::table('orders')->get();
-    return view('orders.index', ["orders" => $orders]);
-});
-
-
-//orders post routes
-
-Route::post('/orders/add', function (Request $request) {
-
-    DB::table('orders')->insert([
-
-        "order_name" => $request->order_name,
-        "order_code" => $request->order_code,
-        "order_delivery_time" => $request->order_delivery_time,
-        "delivery_method" => $request->delivery_method,
-    ]);
-    return redirect('/orders/index');
-});
-
-Route::post('/orders/edit/{id}' , function(Request $request, $id){
-
-    DB::table('orders')->where('id' , $id)->update([
-        "order_name" => $request->order_name,
-        "order_code" => $request->order_code,
-        "order_delivery_time" => $request->order_delivery_time,
-        "delivery_method" => $request->delivery_method,
-    ]);
-    return redirect('/orders/index');
-});
-
-
-//orders delete route
-
-Route::delete('/orders/delete/{id}' , function($id){
-
-    DB::table('orders')->where('id' , $id)->delete();
-    return redirect('/orders/index');
-});
