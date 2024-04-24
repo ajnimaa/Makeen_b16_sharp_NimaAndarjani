@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>افزودن سفارش</h1>
-<form action="/orders/add" method="post">
+<form action="{{ route('orders.add') }}" method="post">
     @csrf
     <input type="text" name="order_name" placeholder="نام سفارش">
     <br>
