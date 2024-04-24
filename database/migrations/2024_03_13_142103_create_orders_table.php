@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('order_name');
             $table->integer('order_code')->unique();
-            $table->date('order_delivery_time');
+            // $table->increments('order_code');
+            $table->date('order_delivery_time')->nullable();
             $table->enum('delivery_method' , ['in person' , 'not in person']);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
