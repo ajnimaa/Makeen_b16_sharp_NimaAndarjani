@@ -10,7 +10,7 @@
 <body>
     <h1>افزودن کاربر</h1>
     <br>
-    <form action="/users/add/" method="post">
+    <form action="{{ route('users.add') }}" method="post">
         @csrf
         <input type="text" name="name" placeholder="نام">
         <br>
