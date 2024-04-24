@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>افزودن محصول</h1>
-<form action="/products/add" method="post">
+<form action="{{ route('products.add') }}" method="post">
     @csrf
     <input type="text" name="product_name" placeholder="نام محصول">
     <br>
