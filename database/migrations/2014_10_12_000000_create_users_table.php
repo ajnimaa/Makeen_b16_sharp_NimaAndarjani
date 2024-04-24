@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('gender' , ['male' , 'female']);
+            $table->unsignedBigInteger('team_id');
+            // $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
