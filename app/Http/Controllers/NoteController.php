@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NoteStoreRequest;
 use App\Models\Note;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class NoteController extends Controller
         return response()->json($note);
     }
 
-    public function store(Request $request){
+    public function store(NoteStoreRequest $request){
         $note = Note::create($request->toArray());
         return response()->json($note);
     }
