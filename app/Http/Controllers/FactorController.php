@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FactorStoreRequst;
 use App\Models\Factor;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class FactorController extends Controller
         return response()->json($factor);
     }
 
-    public function store(Request $request)
+    public function store(FactorStoreRequst $request)
     {
         $factor = Factor::create($request->toArray());
         return response()->json($factor);
