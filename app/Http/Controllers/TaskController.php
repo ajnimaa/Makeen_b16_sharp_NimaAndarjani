@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskEditRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    public function edit(Request $request, $id)
+    public function edit(TaskEditRequest $request, $id)
     {
         $task = Task::where('id', $id)->update($request->toArray());
         return response()->json($task);
