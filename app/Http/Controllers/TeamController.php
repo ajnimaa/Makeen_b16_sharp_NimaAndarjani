@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeamEditRequest;
 use App\Http\Requests\TeamStoreRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class TeamController extends Controller
         return response()->json($team);
     }
 
-    public function edit(Request $request, $id)
+    public function edit(TeamEditRequest $request, $id)
     {
         $team = Team::where('id', $id)->update($request->toArray());
         return response()->json($team);
