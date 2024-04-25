@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeamStoreRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class TeamController extends Controller
         return response()->json($team);
     }
 
-    public function store(Request $request)
+    public function store(TeamStoreRequest $request)
     {
         $team = Team::create($request->toArray());
         return response()->json($team);
