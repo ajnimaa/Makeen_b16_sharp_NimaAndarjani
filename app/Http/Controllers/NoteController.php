@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NoteEditRequest;
 use App\Http\Requests\NoteStoreRequest;
 use App\Models\Note;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class NoteController extends Controller
         return response()->json($note);
     }
 
-    public function edit(Request $request, $id){
+    public function edit(NoteEditRequest $request, $id){
         $note = Note::where('id', $id)->update($request->toArray());
         return response()->json($note);
     }
