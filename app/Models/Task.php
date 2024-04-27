@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Task extends Model
 {
@@ -16,4 +17,9 @@ class Task extends Model
         'user_id',
         'team_id',
     ];
+
+    public function taskable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }
