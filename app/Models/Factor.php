@@ -16,7 +16,7 @@ class Factor extends Model
         'number',
         'seller_name',
         'description',
-        'product_id',
+        // 'product_id',
     ];
 
     public function product(): BelongsTo
