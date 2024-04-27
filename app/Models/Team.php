@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Team extends Model
 {
@@ -11,8 +13,17 @@ class Team extends Model
 
     protected $fillable = [
 
-        'member',
         'team_name',
-        'team_leader',
+        'team_leader_id',
     ];
+
+    public function taskable(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }
