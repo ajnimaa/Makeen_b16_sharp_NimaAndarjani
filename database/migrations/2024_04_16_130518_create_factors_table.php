@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('number')->unique();
             $table->string('seller_name');
+            $table->unsignedBigInteger('product_id');
             $table->text('description');
             $table->date('warrenty_started_at');
             $table->date('warrenty_ended_at');
