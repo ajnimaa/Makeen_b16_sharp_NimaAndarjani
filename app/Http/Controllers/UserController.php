@@ -69,5 +69,5 @@ class UserController extends Controller
         $user = User::where('id', $id)->delete();
         return response()->json($user);
     }
-    
+
 }
