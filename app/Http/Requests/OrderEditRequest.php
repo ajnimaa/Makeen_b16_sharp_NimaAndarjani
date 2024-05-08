@@ -24,7 +24,7 @@ class OrderEditRequest extends FormRequest
         return [
             'order_name' => 'required',
             'order_code' => 'required',
-            'order_delivery_time' => 'date|required',
+            // 'order_delivery_time' => 'date|required',
             'delivery_method' => 'required'
         ];
     }
