@@ -13,12 +13,13 @@ class ProductController extends Controller
     public function index($id = null)
     {
         if ($id) {
-            $products = Product::with('Factor:id,price,number,seller_name,description,product_id')
-                ->orderby('id', 'desc');
+            $products = Product::with(
+                'Orders:id,order_name,order_code,order_delivery_time,delivery_method'
+            )->orderby('id', 'desc');
         } else {
-            $products = Product::with('Factor:id,price,number,seller_name,description,product_id')
-                ->orderby('id', 'desc')
-                ->first();
+            $products = Product::with(
+                'Orders:id,order_name,order_code,order_delivery_time,delivery_method'
+            )->orderby('id', 'desc')->first();
         }
         return response()->json($products);
     }
