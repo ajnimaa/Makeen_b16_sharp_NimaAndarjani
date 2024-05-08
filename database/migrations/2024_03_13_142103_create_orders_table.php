@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('delivery_method' , ['in person' , 'not in person']);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             // $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
