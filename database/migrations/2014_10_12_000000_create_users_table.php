@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
             $table->string('last_name');
             $table->bigInteger('phone_number')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('gender' , ['male' , 'female']);
-            $table->unsignedBigInteger('team_id');
-            // $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('team_id');
+            // $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
