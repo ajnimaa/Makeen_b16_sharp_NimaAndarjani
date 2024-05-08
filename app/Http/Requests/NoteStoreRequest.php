@@ -24,6 +24,7 @@ class NoteStoreRequest extends FormRequest
         return [
             'note_subject' => 'required',
             'note_text' => 'required',
+            'user_id' => 'required'
         ];
     }
 }
