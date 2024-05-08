@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
-            $table->unsignedBigInteger('user_id');
-            $table->date('started_at');
-            $table->date('ended_at');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->dateTime('tickets_time');
             $table->timestamps();
         });
     }
