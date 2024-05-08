@@ -15,12 +15,16 @@ class OrderController extends Controller
         if ($id) {
             $orders = Order::with(
                 'User:id,name,last_name,phone_number,email,gender',
-                'Products:id,product_name,product_code,product_price,inventory'
+                // 'Factor:id,price,number,seller_name,description,warrenty_started_at,warrenty_ended_at',
+                // 'products:id,product_name,product_code,product_price,inventory,warrenty'
+                'Products:id,product_name,product_code,product_price,inventory,warrenty'
             )->orderby('id', 'desc');
         } else {
             $orders = Order::with(
                 'User:id,name,last_name,phone_number,email,gender',
-                'Products:id,product_name,product_code,product_price,inventory'
+                // 'Factor:id,price,number,seller_name,description,warrenty_started_at,warrenty_ended_at',
+                // 'products:id,product_name,product_code,product_price,inventory,warrenty'
+                'Products:id,product_name,product_code,product_price,inventory,warrenty'
             )->orderby('id', 'desc')->first();
         }
         return response()->json($orders);
@@ -31,6 +35,7 @@ class OrderController extends Controller
 
         $order = Order::create($request->toArray());
         $order->products()->attach($request->products_id);
+        $order->factors()->attach($request->factor_id);
         return response()->json($order);
     }
     public function edit(OrderEditRequest $request, $id)
