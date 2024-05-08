@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -22,7 +22,8 @@ class Order extends Model
         'order_code',
         'order_delivery_time',
         'delivery_method',
-        'user_id'
+        'user_id',
+        'product_id',
     ];
 
     public function user(): BelongsTo
@@ -34,4 +35,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    // public function factor():HasOne
+    // {
+    //     return $this->hasOne(Factor::class);
+    // }
 }
