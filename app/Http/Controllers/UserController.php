@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,10 +41,18 @@ class UserController extends Controller
     public function index($id = null)
     {
         if ($id) {
-            $users = User::where('id', $id)->first();
+            $users = User:://with(
+                // 'Note:id,note_subject,note_text,user_id',
+                // 'Task:id,task_subject,task_description,user_id,team_id,'
+            //)
+                where('id' , $id)->first();//orderby('id', 'desc');
         } else {
-            $users = User::orderBy('id', 'desc')
-                ->get();
+            $users = User:://with(
+                // 'Note:id,note_subject,note_text,user_id',
+                // 'Task:id,task_subject,task_description,user_id,team_id,'
+            //)
+                //where('id' , $id)
+                orderBy('id', 'desc')->get();
         }
         return response()->json($users);
     }
@@ -70,4 +80,9 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    public function register(UserRegisterRequest $request)
+    {
+        $user = User::create($request->toArray());
+        return response()->json($user);
+    }
 }
