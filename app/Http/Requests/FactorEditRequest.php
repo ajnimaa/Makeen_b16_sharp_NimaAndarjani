@@ -22,9 +22,9 @@ class FactorEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => 'required',
-            'number' => 'required|unique:factors',
-            'saller_name' => 'required',
+            // 'price' => 'required',
+            // 'number' => 'required|unique:factors',
+            // 'saller_name' => 'required',
         ];
     }
 }
