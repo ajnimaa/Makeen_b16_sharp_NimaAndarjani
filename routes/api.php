@@ -13,6 +13,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrentyController;
 use App\Models\Massage;
+use App\Models\User;
 use App\Models\Warrenty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,13 @@ Route::get('login', function () {
 });
 Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
 
-Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+//users register
+Route::post('users/register', [UserController::class, 'register'])->name('users.register');
+//
+Route::group([
+    'prefix' => 'users', 'as' => 'users.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //users get routes
     Route::get('index/{id?}', [UserController::class, 'index'])->name('index');
     //users post routes
@@ -44,7 +51,10 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth:sanct
     Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'products', 'as' => 'products.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'products', 'as' => 'products.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //products get routes
     Route::get('index/{id?}', [ProductController::class, 'index'])->name('index');
     //products post routes
@@ -54,7 +64,10 @@ Route::group(['prefix' => 'products', 'as' => 'products.', 'middleware' => 'auth
     Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'orders', 'as' => 'orders.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'orders', 'as' => 'orders.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //orders get routes
     Route::get('index/{id?}', [OrderController::class, 'index'])->name('index');
     //orders post routes
@@ -74,7 +87,10 @@ Route::group(['prefix' => 'orders', 'as' => 'orders.', 'middleware' => 'auth:san
 //     Route::delete('delete/{id}', [PostController::class, 'delete'])->name('delete');
 // });
 
-Route::group(['prefix' => 'factors', 'as' => 'factors.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'factors', 'as' => 'factors.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     // factors get routes
     Route::get('index/{id?}', [FactorController::class, 'index'])->name('index');
     //factors post routes
@@ -94,7 +110,10 @@ Route::group(['prefix' => 'teams', 'as' => 'teams.', 'middleware' => 'auth:sanct
     Route::delete('delete/{id}', [TeamController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'tasks', 'as' => 'tasks.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'tasks', 'as' => 'tasks.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //tasks get route
     Route::get('index/{id?}', [TaskController::class, 'index'])->name('index');
     //tasks post route
@@ -104,7 +123,10 @@ Route::group(['prefix' => 'tasks', 'as' => 'tasks.', 'middleware' => 'auth:sanct
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'notes', 'as' => 'notes.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'notes', 'as' => 'notes.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //notes get route
     Route::get('index/{id?}', [NoteController::class, 'index'])->name('index');
     //notes post route
@@ -114,7 +136,10 @@ Route::group(['prefix' => 'notes', 'as' => 'notes.', 'middleware' => 'auth:sanct
     Route::delete('delete/{id}', [NoteController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'tickets', 'as' => 'tickets.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'tickets', 'as' => 'tickets.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //tickets get route
     Route::get('index/{id?}', [TicketController::class, 'index'])->name('index');
     //tickets post route
@@ -124,7 +149,10 @@ Route::group(['prefix' => 'tickets', 'as' => 'tickets.', 'middleware' => 'auth:s
     Route::delete('delete/{id}', [TicketController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'masssages', 'as' => 'massages.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'masssages', 'as' => 'massages.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //massage get route
     Route::get('index/{id?}', [MassageController::class, 'index'])->name('index');
     //massage post route
@@ -134,7 +162,10 @@ Route::group(['prefix' => 'masssages', 'as' => 'massages.', 'middleware' => 'aut
     Route::delete('delete', [MassageController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'warrenties', 'as' => 'warrenties.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'warrenties', 'as' => 'warrenties.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //warrenties get route
     Route::get('index/{id?}', [WarrentyController::class, 'index'])->name('index');
     //warrenties post route
@@ -144,7 +175,10 @@ Route::group(['prefix' => 'warrenties', 'as' => 'warrenties.', 'middleware' => '
     Route::delete('delete/{id}', [WarrentyController::class, 'delete'])->name('delete');
 });
 
-Route::group(['prefix' => 'labels', 'as' => 'labels.', 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'], function () {
+Route::group([
+    'prefix' => 'labels', 'as' => 'labels.',
+    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
     //label get route
     Route::get('index/{id}', [LabelController::class, 'index'])->name('index');
     //label post route
