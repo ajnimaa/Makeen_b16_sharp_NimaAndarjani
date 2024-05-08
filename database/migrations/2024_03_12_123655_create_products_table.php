@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('product_code');
             $table->integer('product_price');
             $table->integer('inventory');
-            $table->string('warrerty');
+            $table->string('warrenty');
             $table->timestamps();
         });
     }
