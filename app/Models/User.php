@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -60,34 +63,32 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function taskable(): MorphTo
+    public function notes(): HasMany
     {
-        return $this->morphTo();
+        return $this->hasMany(Note::class);
     }
 
-    public function factorUser(): HasOneThrough
+    public function tasks(): HasMany
     {
-        return $this->hasOneThrough(Factor::class, Order::class);
+        return $this->hasMany(Task::class);
     }
 
-    public function products(): HasManyThrough
+    public function team(): HasMany
     {
-        return $this->hasManyThrough(Product::class, Order::class);
+        return $this->hasMany(Team::class);
     }
 
-    public function messages(): HasManyThrough
-    {
-        return $this->hasManyThrough(Massage::class, Ticket::class);
-    }
+    protected $appends = ["full_name"];
 
-    public function labels(): MorphToMany
-    {
-        return $this->morphToMany(Label::class, 'labelable');
-    }
+    // public function getFullNameAttribute()
+    // {
+    //     return $this->name . ' ' . $this->last_name;
+    // }
 
-    public function team(): BelongsTo
+    protected function fullName(): Attribute
     {
-        return $this->belongsTo(Team::class);
+        return new Attribute(
+            get: fn () => $this->name . ' ' . $this->last_name
+        );
     }
 }
-
