@@ -24,7 +24,8 @@ class FactorStoreRequst extends FormRequest
         return [
             'price' => 'required',
             'number' => 'required|unique:factors',
-            // 'saller_name' => 'required',
+            'seller_name' => 'required',
+            'order_id',
         ];
     }
 }
