@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('order_code')->unique();
             // $table->increments('order_code');
             $table->date('order_delivery_time')->nullable();
-            $table->enum('delivery_method' , ['in person' , 'not in person']);
+            $table->enum('delivery_method' , ['in person' , 'online']);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('product_id')->unsigned();
