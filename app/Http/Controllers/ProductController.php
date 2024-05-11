@@ -43,4 +43,10 @@ class ProductController extends Controller
         $product = Product::where('id', $id)->delete();
         return response()->json($product);
     }
+
+    public function update(Request $request): string
+    {
+        $path = $request->file('product image')->store('product images');
+        return $path;
+    }
 }
