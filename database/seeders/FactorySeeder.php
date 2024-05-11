@@ -24,7 +24,7 @@ class FactorySeeder extends Seeder
     {
         $users = User::factory()->count(10)->create();
         $product = Product::factory()->count(10)->create();
-        $order = Order::factory()->count(10)->create();
+        $order = Order::factory()->count(10)->for(User::factory())->create();
         $team = Team::factory()->count(10)->create();
         $task = Task::factory()->count(10)->create();
         $ticket = Ticket::factory()->count(10)->create();
