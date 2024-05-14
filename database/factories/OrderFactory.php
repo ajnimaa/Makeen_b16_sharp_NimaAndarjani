@@ -22,7 +22,7 @@ class OrderFactory extends Factory
             'order_name' => fake()->word(),
             'order_code' => fake()->randomNumber(8 , true),
             'order_delivery_time' => fake()->dateTime(),
-            'delivery_method' => fake()->randomElement(['in person' , 'not in person']),
+            'delivery_method' => fake()->randomElement(['in person' , 'online']),
             'user_id' => User::factory(),
             'product_id' => Product::factory()
         ];
