@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('team_name');
             $table->unsignedBigInteger('team_leader_id');
-            $table->foreign('team_leader_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
