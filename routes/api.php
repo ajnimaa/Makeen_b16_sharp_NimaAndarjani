@@ -53,7 +53,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'products', 'as' => 'products.',
-    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+   'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
 ], function () {
     //products get routes
     Route::get('index/{id?}', [ProductController::class, 'index'])->name('index');
