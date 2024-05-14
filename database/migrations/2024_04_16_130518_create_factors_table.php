@@ -19,8 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('warrenty_started_at')->nullable();
             $table->date('warrenty_ended_at')->nullable();
-            $table->bigInteger('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
         });
     }
