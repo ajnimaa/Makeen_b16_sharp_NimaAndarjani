@@ -18,11 +18,8 @@ return new class extends Migration
             // $table->increments('order_code');
             $table->date('order_delivery_time')->nullable();
             $table->enum('delivery_method' , ['in person' , 'online']);
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            // $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
         });
     }
