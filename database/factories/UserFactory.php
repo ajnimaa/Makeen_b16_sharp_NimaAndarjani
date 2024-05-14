@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
             'gender' => fake()->randomElement(['male' , 'female']),
-            'team_id' => fake()->numberBetween(0, 20)
+            'team_id' => Team::factory()
         ];
     }
 
