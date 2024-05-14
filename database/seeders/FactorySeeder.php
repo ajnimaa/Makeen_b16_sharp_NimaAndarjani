@@ -34,6 +34,6 @@ class FactorySeeder extends Seeder
         // $massage = Massage::factory()->count(10)->create();
 
         $user = User::factory()
-        ->has(Order::factory()->has(Factor::factory())->has(Product::factory()->count(3)))->create();
+        ->has(Order::factory()->has(Factor::factory()->count(3))->has(Product::factory()))->count(3)->create();
     }
 }
