@@ -26,8 +26,10 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
+        $path = $request->file('image_path')->store('public/product_images');
 
-        $product = Product::create($request->toArray());
+        $product = Product::create($request->merge(['image_path' => $path])
+        ->toArray());
         return response()->json($product);
     }
     public function edit(ProductEditRequest $request, $id)
