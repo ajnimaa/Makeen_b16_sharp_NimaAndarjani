@@ -21,7 +21,8 @@ class ProductFactory extends Factory
             'product_code' => fake()->randomNumber(8, true),
             'product_price' => fake()->randomNumber(),
             'inventory' => fake()->numberBetween(0, 1000),
-            'warrenty' => fake()->randomNumber()
+            'warrenty' => fake()->randomNumber(),
+            'image_path' => fake()->mimeType(),
         ];
     }
 }
