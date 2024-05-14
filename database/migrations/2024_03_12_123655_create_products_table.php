@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('product_price');
             $table->integer('inventory');
             $table->string('warrenty');
+            $table->string('image_path');
             $table->timestamps();
         });
     }
