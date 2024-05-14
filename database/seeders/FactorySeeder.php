@@ -22,15 +22,18 @@ class FactorySeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::factory()->count(10)->create();
-        $product = Product::factory()->count(10)->create();
-        $order = Order::factory()->count(10)->for(User::factory())->create();
-        $team = Team::factory()->count(10)->create();
-        $task = Task::factory()->count(10)->create();
-        $ticket = Ticket::factory()->count(10)->create();
-        $note = Note::factory()->count(10)->create();
-        $factor = Factor::factory()->count(10)->create();
-        $warrenty = Warrenty::factory()->count(10)->create();
-        $massage = Massage::factory()->count(10)->create();
+        // $users = User::factory()->count(10)->create();
+        // $product = Product::factory()->count(10)->create();
+        // $order = Order::factory()->count(10)->for(User::factory())->create();
+        // $team = Team::factory()->count(10)->create();
+        // $task = Task::factory()->count(10)->create();
+        // $ticket = Ticket::factory()->count(10)->create();
+        // $note = Note::factory()->count(10)->create();
+        // $factor = Factor::factory()->count(10)->create();
+        // $warrenty = Warrenty::factory()->count(10)->create();
+        // $massage = Massage::factory()->count(10)->create();
+
+        $user = User::factory()
+        ->has(Order::factory()->has(Factor::factory())->has(Product::factory()->count(3)))->create();
     }
 }
