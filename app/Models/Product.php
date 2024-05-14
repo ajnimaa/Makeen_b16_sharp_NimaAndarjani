@@ -23,7 +23,8 @@ class Product extends Model
         'product_code',
         'product_price',
         'inventory',
-        'warrenty'
+        'warrenty',
+        'image_path'
     ];
 
     public function orders(): BelongsToMany
