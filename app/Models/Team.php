@@ -19,9 +19,9 @@ class Team extends Model
         'team_leader_id',
     ];
 
-    public function taskable(): MorphTo
+    public function tasks(): HasMany
     {
-        return $this->morphTo();
+        return $this->hasMany(Task::class);
     }
 
     public function users(): BelongsToMany
