@@ -32,6 +32,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function medias(): MorphToMany
+    {
+        return $this->morphedByMany(Media::class, 'mediable');
+    }
+
     // public function labels(): MorphToMany
     // {
     //     return $this->morphToMany(Label::class, 'labelable');
