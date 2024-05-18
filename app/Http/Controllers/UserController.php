@@ -7,6 +7,7 @@ use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +39,7 @@ class UserController extends Controller
         return response()->json('user loggedout');
     }
 
-    public function index($id = null)
+    public function index(Request $request,$id = null)
     {
         if ($id) {
             $users = User:://with(
@@ -53,6 +54,13 @@ class UserController extends Controller
             //)
                 //where('id' , $id)
                 orderBy('id', 'desc')->get();
+        }
+        $fillter = $request->fillter;
+        if ($fillter) {
+            $user = new User();
+            $users = $user->with('orders')->whereHas('orders', function (Builder $query) use ($fillter) {
+                $query->where('code', $fillter);
+            })->paginate(10);
         }
         return response()->json($users);
     }
