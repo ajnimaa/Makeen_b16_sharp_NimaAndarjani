@@ -29,7 +29,7 @@ class ProductController extends Controller
         $path = $request->file('image_path')->store('public/product_images');
 
         $product = Product::create($request->merge(['image_path' => $path])
-        ->toArray());
+            ->toArray());
         return response()->json($product);
     }
     public function edit(ProductEditRequest $request, $id)
@@ -44,11 +44,5 @@ class ProductController extends Controller
 
         $product = Product::where('id', $id)->delete();
         return response()->json($product);
-    }
-
-    public function update(Request $request): string
-    {
-        $path = $request->file('product image')->store('product images');
-        return $path;
     }
 }
