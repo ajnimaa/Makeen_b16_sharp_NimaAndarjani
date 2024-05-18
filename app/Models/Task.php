@@ -19,9 +19,9 @@ class Task extends Model
         'team_id',
     ];
 
-    public function taskable(): MorphTo
+    public function team(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(Team::class);
     }
 
     public function user(): BelongsTo
