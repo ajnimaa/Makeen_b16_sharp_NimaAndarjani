@@ -33,7 +33,7 @@ class FactorySeeder extends Seeder
         // $warrenty = Warrenty::factory()->count(10)->create();
         // $massage = Massage::factory()->count(10)->create();
 
-        $user = User::factory()->has(Team::factory())
+        $user = User::factory()->has(Team::factory()->has(Task::factory()))->has(Note::factory())->has(Ticket::factory())->has(Task::factory())
         ->has(Order::factory()->has(Factor::factory())->has(Product::factory()))->count(3)->create();
     }
 }
