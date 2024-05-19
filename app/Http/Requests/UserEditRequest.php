@@ -22,7 +22,7 @@ class UserEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'first_name' => 'required',
             'last_name' => 'required',
             'phone_number' => 'required|max_digits:11',
             'email' => 'required|email',
