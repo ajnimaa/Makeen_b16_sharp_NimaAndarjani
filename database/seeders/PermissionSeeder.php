@@ -20,6 +20,9 @@ class PermissionSeeder extends Seeder
         $reseller = Role::create(['name' => 'reseller']);
         $customer = Role::create(['name' => 'customer']);
 
+        //me permission
+        $me = Permission::create(['name' => 'me']);
+
         //user permission
         $user_create = Permission::create(['name' => 'user.create']);
         $user_edit = Permission::create(['name' => 'user.edit']);
@@ -86,16 +89,20 @@ class PermissionSeeder extends Seeder
         $label_delete = Permission::create(['name' => 'label.delete']);
         $label_index = Permission::create(['name' => 'label.index']);
 
-        //superadmin permissions
-        // $super_admin->givePermissionTo((Permission::all()));
-        $super_admin->givePermissionTo((Permission::all()));
+        // $super_admin->syncPermissions((Permission::all()));
+        // $admin->syncPermissions([
+        //     "user.index", "user.create", "user.delete",
+        //     "user.edit", "order.create", "order.edit",
+        // ]);
+        // $user->syncPermissions([
+        //     "user.index", "user.delete", "user.edit",
+        //     "order.create", "order.edit", ".me",
+        // ]);
+        // $reseller->syncPermissions([
+        //     "user.index", "product.index", "product.create", "product.delete",
+        //     "product.edit", "order.index",
+        // ]);
+        // $customer->syncPermissions(["product.index", "user.create"]);
 
-        //admin permissions
-        $admin->givePermissionTo($user_index,$user_create, $user_delete, $user_edit,  $order_create, $order_edit);
-        $user->givePermissionTo($user_index, $user_delete, $user_edit,  $order_create, $order_edit);
-        $reseller->givePermissionTo($user_index, $product_index, $product_create, $product_delete, $product_edit, $order_index, $label_index);
-        $customer->givePermissionTo($product_index, $user_create);
     }
-
-
 }
