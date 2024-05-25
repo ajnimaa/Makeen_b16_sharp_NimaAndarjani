@@ -71,6 +71,7 @@ class UserController extends Controller
         $user = User::create($request->merge([
             "password" => Hash::make($request->password)
         ])->toArray());
+            // $user->assignRole('super_admin');
         return response()->json($user);
     }
 
@@ -93,4 +94,11 @@ class UserController extends Controller
         $user = User::create($request->toArray());
         return response()->json($user);
     }
+
+    public function storeprofile(Request $request): string
+    {
+        $path = $request->file('product image')->store('product images');
+        return $path;
+    }
+
 }
