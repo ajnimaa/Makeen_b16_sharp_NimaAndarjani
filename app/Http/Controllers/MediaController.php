@@ -2,39 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Media;
+use App\Models\Massage;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaController extends Controller
 {
     public function index($id = null)
     {
-        if($id){
-            $media = Media::with('users')->orderBy('id', 'desc')->paginate(10);
-        }else{
-            $media = Media::with('users')->find($id);
+        if ($id == null) {
+            $media = Media::orderBy('id', 'desc')->paginate(10);
+        } else {
+            $media = Media::find($id);
         }
         return response()->json($media);
     }
-    public function storeprofile(Request $request): string
+    public function store(Request $request)
     {
-        $path = $request->file('product image')->store('product images');
-        return $path;
+        $type = $request->type;
+        if ($type == 'users') {
+            $user = new User();
+            $user->find($request->id)->addMediaFromRequest('media')->toMediaCollection('avatar');
+        } else if ($type == 'products') {
+            $product = new Product();
+            $product->find($request->id)->addMediaFromRequest('media')->toMediaCollection('product');
+        } else  if ($type == 'messages') {
+            $message = new Massage();
+            $message->find($request->id)->addMediaFromRequest('media')->toMediaCollection('message');
+        } else {
+            $order = new Order();
+            $order->find($request->id)->addMediaFromRequest('media')->toMediaCollection('order');
+        }
+
+        return response()->json('uploaded');
     }
-    public function edit(Request $request, $id)
+
+    public function delete(Request $request, string $id)
     {
-        $media = Media::where('id', $id)->update($request->toArray());
-        return response()->json($media);
-    }
-    public function delete($id)
-    {
-        $media = Media::where($id, 'id')->delete();
-        return response()->json($media);
+        $id = $request->id;
+        $media = Media::destroy($id);
+        return "deleted";
     }
     public function download(Request $request)
     {
-        $path = $request->path;
-        return Storage::download($path);
+        $id = $request->id;
+        $media = new Media();
+        $media = $media->find($id);
+        return response()->download($media->getPath());
     }
 }
