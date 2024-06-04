@@ -71,7 +71,7 @@ class UserController extends Controller
         $user = User::create($request->merge([
             "password" => Hash::make($request->password)
         ])->toArray());
-            // $user->assignRole('super_admin');
+            $user->assignRole('super_admin');
         return response()->json($user);
     }
 
