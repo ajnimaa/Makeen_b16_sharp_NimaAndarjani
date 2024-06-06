@@ -12,11 +12,13 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,InteractsWithMedia, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
         'last_name',
         'phone_number',
         'email',
@@ -69,19 +71,19 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    protected $appends = ["full_name"];
+    // protected $appends = ["full_name"];
 
     // public function getFullNameAttribute()
     // {
     //     return $this->name . ' ' . $this->last_name;
     // }
 
-    protected function fullName(): Attribute
-    {
-        return new Attribute(
-            get: fn () => $this->name . ' ' . $this->last_name
-        );
-    }
+    // protected function fullName(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn () => $this->name . ' ' . $this->last_name
+    //     );
+    // }
 
     public function teams(): BelongsToMany
     {

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('subject');
             $table->unsignedBigInteger('user_id');
-            $table->dateTime('tickets_time');
+            $table->dateTime('tickets_time')->nullable();
             $table->timestamps();
         });
     }

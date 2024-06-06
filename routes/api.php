@@ -3,6 +3,7 @@
 use App\Http\Controllers\FactorController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\MassageController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
@@ -12,11 +13,14 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrentyController;
+use App\Jobs\ProductCreateJob;
 use App\Models\Massage;
 use App\Models\User;
 use App\Models\Warrenty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,15 +44,17 @@ Route::post('users/register', [UserController::class, 'register'])->name('users.
 //
 Route::group([
     'prefix' => 'users', 'as' => 'users.',
-    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+    'middleware' => 'auth:sanctum'
 ], function () {
     //users get routes
     Route::get('index/{id?}', [UserController::class, 'index'])->name('index');
     //users post routes
-    Route::post('store', [UserController::class, 'store'])->name('store');
+    Route::post('store', [UserController::class, 'store'])->middleware('permission:user.store')->name('store');
     Route::put('edit/{id}', [UserController::class, 'edit'])->name('edit');
     //users delete route
     Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
+    //users profile add
+    Route::post('storeprofile', [UserController::class, 'storeprofile'])->name('storeprofile');
 });
 
 Route::group([
@@ -57,7 +63,7 @@ Route::group([
 ], function () {
     //products get routes
     Route::get('index/{id?}', [ProductController::class, 'index'])->name('index');
-    //products post routes
+    //products post rou tes
     Route::post('store', [ProductController::class, 'store'])->name('store');
     Route::put('edit/{id}', [ProductController::class, 'edit'])->name('edit');
     //products delete route
@@ -89,7 +95,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'factors', 'as' => 'factors.',
-    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+    // 'middleware' => 'auth:sanctum'
 ], function () {
     // factors get routes
     Route::get('index/{id?}', [FactorController::class, 'index'])->name('index');
@@ -125,10 +131,10 @@ Route::group([
 
 Route::group([
     'prefix' => 'notes', 'as' => 'notes.',
-    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+    'middleware' => 'auth:sanctum'
 ], function () {
     //notes get route
-    Route::get('index/{id?}', [NoteController::class, 'index'])->name('index');
+    Route::get('index/{id?}', [NoteController::class, 'index'])->middleware('permission:note.index')->name('index');
     //notes post route
     Route::post('store', [NoteController::class, 'store'])->name('store');
     Route::put('edit/{id}', [NoteController::class, 'edit'])->name('edit');
@@ -150,16 +156,16 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'masssages', 'as' => 'massages.',
-    'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+    'prefix' => 'massages', 'as' => 'massages.',
+    'middleware' => 'auth:sanctum'
 ], function () {
     //massage get route
     Route::get('index/{id?}', [MassageController::class, 'index'])->name('index');
     //massage post route
     Route::post('store', [MassageController::class, 'store'])->name('store');
-    Route::put('edit', [MassageController::class, 'edit'])->name('edit');
+    Route::put('edit/{id}', [MassageController::class, 'edit'])->name('edit');
     //massage delete route
-    Route::delete('delete', [MassageController::class, 'delete'])->name('delete');
+    Route::delete('delete/{id}', [MassageController::class, 'delete'])->name('delete');
 });
 
 Route::group([
@@ -180,10 +186,37 @@ Route::group([
     'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
 ], function () {
     //label get route
-    Route::get('index/{id}', [LabelController::class, 'index'])->name('index');
+    Route::get('index/{id?
+    }', [LabelController::class, 'index'])->name('index');
     //label post route
     Route::post('store', [LabelController::class, 'store'])->name('store');
     Route::put('edit/{id}', [LabelController::class, 'edit'])->name('edit');
     //label delete route
     Route::delete('delete/{id}', [LabelController::class, 'delete'])->name('delete');
+});
+
+// Route::group([
+//     'prefix' => 'medias' , 'as' => 'medias.',
+//     'meddleware' => 'auth:sanctum'
+// ], function(){
+//     Route::get('index/{id?}', [Media::class, 'index'])->name('index');
+//     // Route::post('store', [Media::class, 'store'])->name('store');
+//     Route::post('store', [Media::class, 'store'])->name('store');
+//     Route::delete('delete/{id}', [Media::class, 'delete'])->name('delete');
+// });
+Route::group([
+    'prefix' => 'medias', 'as' => 'medias.',
+    // 'middleware' => 'auth:sanctum', 'role:super_admin|user|admin|reseller|customer'
+], function () {
+    //media get route
+    Route::get('index/{id?}', [MediaController::class, 'index'])->name('index');
+    //media post route
+    Route::post('store', [MediaController::class, 'store'])->name('store');
+    Route::post('download', [MediaController::class, 'download'])->name('download');
+    //media delete route
+    Route::delete('delete/{id}', [MediaController::class, 'delete'])->name('delete');
+});
+
+Route::get('test', function(){
+    ProductCreateJob::dispatch();
 });

@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('labelables', function (Blueprint $table) {
             $table->unsignedBigInteger('label_id');
-            $table->unsignedBigInteger('labelable_id');
-            $table->string('lablelable_type');
+            $table->morphs('labelable');
             $table->timestamps();
 
         });
