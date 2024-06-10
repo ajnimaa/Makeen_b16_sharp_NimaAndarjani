@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use Faker\Provider\ar_EG\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class email extends Mailable
+class MyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,7 +18,7 @@ class email extends Mailable
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -28,8 +27,7 @@ class email extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'my Email',
-            from: new Address('andarjaninima@gmail.com', 'nima')
+            subject: 'My Email',
         );
     }
 
@@ -39,7 +37,7 @@ class email extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail',
         );
     }
 

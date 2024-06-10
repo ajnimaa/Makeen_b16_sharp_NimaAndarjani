@@ -89,20 +89,20 @@ class PermissionSeeder extends Seeder
         $label_delete = Permission::create(['name' => 'label.delete']);
         $label_index = Permission::create(['name' => 'label.index']);
 
-        $super_admin->syncPermissions((Permission::all()));
-        $admin->syncPermissions([
-            "user.index", "user.store", "user.delete",
-            "user.edit", "order.store", "order.edit"
-        ]);
-        $user->syncPermissions([
-            "user.index", "user.delete", "user.edit",
-            "order.store", "order.edit"
-        ]);
-        $reseller->syncPermissions([
-            "user.index", "product.index", "product.store", "product.delete",
-            "product.edit", "order.index",
-        ]);
-        $customer->syncPermissions(["product.index", "user.store"]);
+        // $super_admin->syncPermissions((Permission::all()));
+        // $admin->syncPermissions([
+        //     "user.index", "user.store", "user.delete",
+        //     "user.edit", "order.store", "order.edit"
+        // ]);
+        // $user->syncPermissions([
+        //     "user.index", "user.delete", "user.edit",
+        //     "order.store", "order.edit"
+        // ]);
+        // $reseller->syncPermissions([
+        //     "user.index", "product.index", "product.store", "product.delete",
+        //     "product.edit", "order.index",
+        // ]);
+        // $customer->syncPermissions(["product.index", "user.store"]);
 
     }
 }

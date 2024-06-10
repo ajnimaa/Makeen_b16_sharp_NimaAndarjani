@@ -44,12 +44,12 @@ Route::post('users/register', [UserController::class, 'register'])->name('users.
 //
 Route::group([
     'prefix' => 'users', 'as' => 'users.',
-    'middleware' => 'auth:sanctum'
+    // 'middleware' => 'auth:sanctum'
 ], function () {
     //users get routes
     Route::get('index/{id?}', [UserController::class, 'index'])->name('index');
     //users post routes
-    Route::post('store', [UserController::class, 'store'])->middleware('permission:user.store')->name('store');
+    Route::post('store', [UserController::class, 'store'])->name('store');
     Route::put('edit/{id}', [UserController::class, 'edit'])->name('edit');
     //users delete route
     Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
@@ -219,4 +219,8 @@ Route::group([
 
 Route::get('test', function(){
     ProductCreateJob::dispatch();
+});
+
+Route::get('sendmail', function(){
+
 });

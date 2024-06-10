@@ -6,11 +6,13 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserStoreRequest;
+use App\Mail\MyEmail;
 use App\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -71,7 +73,8 @@ class UserController extends Controller
         $user = User::create($request->merge([
             "password" => Hash::make($request->password)
         ])->toArray());
-            $user->assignRole('super_admin');
+            // $user->assignRole('super_admin');
+            Mail::to($request->email)->send(new MyEmail);
         return response()->json($user);
     }
 
@@ -100,5 +103,7 @@ class UserController extends Controller
         $path = $request->file('product image')->store('product images');
         return $path;
     }
+
+
 
 }
