@@ -15,7 +15,8 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $admin = Role::create(['name' => 'admin']);
-        $super_admin = Role::create(['name' => 'super_admin']);
+        $super_admin = Role::create(['name' => 'super.admin']);
+        // $super_admin = Permission::create(['name' => 'super_admin']);
         $user = Role::create(['name' => 'user']);
         $reseller = Role::create(['name' => 'reseller']);
         $customer = Role::create(['name' => 'customer']);
@@ -90,13 +91,18 @@ class PermissionSeeder extends Seeder
         $label_index = Permission::create(['name' => 'label.index']);
 
         // $super_admin->syncPermissions((Permission::all()));
-        // $admin->syncPermissions([
-        //     "user.index", "user.store", "user.delete",
-        //     "user.edit", "order.store", "order.edit"
-        // ]);
+        $super_admin->syncPermissions(Permission::all());
+        $admin->syncPermissions([
+            "user.index", "user.store","user.edit",
+             "order.store", "order.edit",
+            "order.delete", "order.index", "product"
+        ]);
         // $user->syncPermissions([
-        //     "user.index", "user.delete", "user.edit",
-        //     "order.store", "order.edit"
+        //     "product.index", "order.delete",
+        //     "product.store", "order.store", "order.edit",
+        //     "team.store", "team.index", "task.index", "note.store",
+        //     "massage.store", "massage.edit", "massage.delete", "warrenty.index",
+        //     "label.index", "label.store"
         // ]);
         // $reseller->syncPermissions([
         //     "user.index", "product.index", "product.store", "product.delete",

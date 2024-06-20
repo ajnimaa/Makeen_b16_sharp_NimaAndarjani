@@ -34,7 +34,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 */
 
 Route::post('login', [UserController::class, 'login'])->name('login');
-Route::get('login', function () {
+Route::get('logi', function () {
     return '401';
 });
 Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
@@ -44,7 +44,8 @@ Route::post('users/register', [UserController::class, 'register'])->name('users.
 //
 Route::group([
     'prefix' => 'users', 'as' => 'users.',
-    // 'middleware' => 'auth:sanctum'
+    //'middleware' => 'auth:sanctum',
+    //  'middleware' => 'permission::super_admin'
 ], function () {
     //users get routes
     Route::get('index/{id?}', [UserController::class, 'index'])->name('index');

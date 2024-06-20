@@ -20,7 +20,7 @@ class MyEmail extends Mailable
     {
         //
     }
-
+    
     /**
      * Get the message envelope.
      */

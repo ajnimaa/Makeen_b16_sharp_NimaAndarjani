@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class LogTest extends Command
 {
@@ -11,7 +13,7 @@ class LogTest extends Command
      *
      * @var string
      */
-    protected $signature = 'kk';
+    protected $signature = 'work';
 
     /**
      * The console command description.
@@ -25,6 +27,16 @@ class LogTest extends Command
      */
     public function handle()
     {
-        echo "man kos mikham";
+        // $now = Carbon::now();
+        // Log::build([
+        //     'driver' => 'single',
+        //     "path" => storage_path("logs/test.log"),
+        // ])->info($now);
+
+
+$myfile = fopen("log.test" , "w") or die("Unable to open file!");
+$txt = Carbon::now();
+fwrite($myfile, $txt);
+fclose($myfile);
     }
 }
